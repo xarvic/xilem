@@ -300,7 +300,7 @@ where
                         response.prev.as_ref().unwrap(),
                         self.id.as_mut().unwrap(),
                         &mut state,
-                        element,
+                        element.downcast_mut().unwrap(),
                     );
                     self.root_pod.as_mut().unwrap().mark(changes);
                     assert!(self.cx.is_empty(), "id path imbalance on rebuild");
@@ -308,7 +308,7 @@ where
                 } else {
                     let (id, state, element) = response.view.build(&mut self.cx);
                     assert!(self.cx.is_empty(), "id path imbalance on build");
-                    self.root_pod = Some(element);
+                    self.root_pod = Some(Pod::new(element));
                     self.id = Some(id);
                     state
                 };
