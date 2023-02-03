@@ -190,16 +190,6 @@ impl<'a, 'b> AccessCx<'a, 'b> {
         let id = self.widget_state.id.into();
         self.update.nodes.push((id, Arc::new(node)));
     }
-
-    /// Report whether accessibility was requested on this widget.
-    ///
-    /// This method is primarily intended for containers. The `accessibility`
-    /// method will be called on a widget when it or any of its descendants
-    /// have seen a request. However, in many cases a container need not push
-    /// a node for itself.
-    pub fn is_requested(&self) -> bool {
-        self.widget_state.flags.contains(PodFlags::REQUEST_ACCESSIBILITY)
-    }
 }
 
 impl<'a, 'b> PaintCx<'a, 'b> {
