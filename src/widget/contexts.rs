@@ -190,6 +190,14 @@ impl<'a, 'b> AccessCx<'a, 'b> {
         let id = self.widget_state.id.into();
         self.update.nodes.push((id, Arc::new(node)));
     }
+
+    /// Returns true if this node requested accessibility.
+    ///
+    /// If false is returned this node does not need create a new node. It still needs to call
+    /// the accessibility method of all its children.
+    pub fn requested(&self) -> bool {
+        self.widget_state.flags.contains(PodFlags::REQUEST_ACCESSIBILITY)
+    }
 }
 
 impl<'a, 'b> PaintCx<'a, 'b> {
